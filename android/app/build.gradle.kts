@@ -71,7 +71,8 @@ android {
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("com.onesignal:OneSignal:[5.0.0, 5.99.99]")
+    implementation("com.onesignal:OneSignal:[5.1.0,]")
+    implementation("com.google.android.play:core:1.10.3")
 }
 
 flutter {
