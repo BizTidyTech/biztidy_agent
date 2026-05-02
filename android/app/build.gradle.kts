@@ -72,13 +72,13 @@ android {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-    // ✅ OneSignal (fixed version)
+    // OneSignal
     implementation("com.onesignal:OneSignal:5.1.0")
 
-    // ✅ Play Core (modern, no duplicates)
-    implementation("com.google.android.play:core-common:2.0.3")
-    implementation("com.google.android.play:feature-delivery:2.1.0")
-    implementation("com.google.android.play:core-ktx:1.8.1")
+    // Play Core - use only feature-delivery, it includes everything needed
+    implementation("com.google.android.play:feature-delivery:2.1.0") {
+        exclude(group = "com.google.android.play", module = "core")
+    }
 }
 
 flutter {
