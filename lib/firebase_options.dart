@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyB5NfFg8Fw9uwLI6G6sFzmdBq9mSQXa5PY',
-    appId: '1:67602217645:android:ef76999ed1cde0384da424',
+    appId: '1:67602217645:android:06452ac8837b53d74da424',
     messagingSenderId: '67602217645',
     projectId: 'tidytech-app',
     storageBucket: 'tidytech-app.firebasestorage.app',
