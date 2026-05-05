@@ -1,4 +1,4 @@
-package com.tidytech.biztidy_agent_app
+package com.biztidyagent.app
 
 import io.flutter.embedding.android.FlutterActivity
 
