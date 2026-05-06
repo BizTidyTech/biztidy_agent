@@ -117,7 +117,7 @@ class _AgentVerifyEmailScreenState extends State<AgentVerifyEmailScreen> {
                 ),
                 verticalSpacer(10),
                 Text(
-                  'Please check your inbox (and spam folder) and click the link to verify your email before continuing.',
+                  'Please check your inbox and click the verification link. If you don\'t see it, check your Spam or Junk folder and mark it as "Not Spam".',
                   style: AppStyles.subStringStyle(14, AppColors.darkGray),
                   textAlign: TextAlign.center,
                 ),
