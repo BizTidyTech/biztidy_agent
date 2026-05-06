@@ -56,7 +56,11 @@ class AgentAuthController extends GetxController {
         showLoading = false; update(); return;
       }
 
-      await saveAgentDetailsLocally(agent);
+      // Set agent online immediately on login
+      final onlineAgent = agent.copyWith(status: 'online');
+      await saveAgentDetailsLocally(onlineAgent);
+      await AgentFirebaseService()
+          .updateAgentStatus(onlineAgent.agentId!, 'online');
       showLoading = false; update();
 
       if (agent.isApproved != true) {
@@ -70,12 +74,12 @@ class AgentAuthController extends GetxController {
       context.go('/agentHomeScreen');
     } on FirebaseAuthException catch (e) {
       errMessage = (e.code == 'invalid-credential' ||
-              e.code == 'wrong-password' ||
-              e.code == 'user-not-found')
+          e.code == 'wrong-password' ||
+          e.code == 'user-not-found')
           ? 'Incorrect email or password.'
           : e.code == 'too-many-requests'
-              ? 'Too many attempts. Please wait.'
-              : 'Sign in failed. Please retry.';
+          ? 'Too many attempts. Please wait.'
+          : 'Sign in failed. Please retry.';
       showLoading = false; update();
     } catch (e) {
       errMessage = 'Something went wrong. Please try again.';
@@ -259,8 +263,8 @@ class AgentSignupController extends GetxController {
       errMessage = e.code == 'email-already-in-use'
           ? 'This email is already registered. Please sign in.'
           : e.code == 'invalid-email'
-              ? 'Please enter a valid email address.'
-              : 'Account creation failed: ${e.message}';
+          ? 'Please enter a valid email address.'
+          : 'Account creation failed: ${e.message}';
       showLoading = false; update();
     }
   }
