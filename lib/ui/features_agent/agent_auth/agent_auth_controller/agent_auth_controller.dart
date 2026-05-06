@@ -1,4 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
 import 'dart:io';
 import 'package:biztidy_agent_app/app/helpers/agent_sharedprefs.dart';
 import 'package:biztidy_agent_app/app/services/agent_firebase_service.dart';
@@ -163,15 +162,31 @@ class AgentSignupController extends GetxController {
   }
 
   Future<void> pickPassportPhoto() async {
-    final picked = await ImagePicker()
-        .pickImage(source: ImageSource.gallery, imageQuality: 70);
-    if (picked != null) { passportPhoto = File(picked.path); update(); }
+    try {
+      final picked = await ImagePicker()
+          .pickImage(source: ImageSource.gallery, imageQuality: 70);
+      if (picked != null) { passportPhoto = File(picked.path); update(); }
+    } catch (e) {
+      Fluttertoast.showToast(
+        msg: 'Could not open gallery. Please check app permissions.',
+        backgroundColor: Colors.red,
+      );
+      logger.e('Passport photo pick error: $e');
+    }
   }
 
   Future<void> pickIdDocument() async {
-    final picked = await ImagePicker()
-        .pickImage(source: ImageSource.gallery, imageQuality: 75);
-    if (picked != null) { idDocument = File(picked.path); update(); }
+    try {
+      final picked = await ImagePicker()
+          .pickImage(source: ImageSource.gallery, imageQuality: 75);
+      if (picked != null) { idDocument = File(picked.path); update(); }
+    } catch (e) {
+      Fluttertoast.showToast(
+        msg: 'Could not open gallery. Please check app permissions.',
+        backgroundColor: Colors.red,
+      );
+      logger.e('ID document pick error: $e');
+    }
   }
 
   Future<String?> _uploadFile(File file, String path) async {
