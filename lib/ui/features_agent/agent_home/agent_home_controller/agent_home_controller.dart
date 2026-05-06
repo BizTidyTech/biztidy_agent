@@ -48,6 +48,13 @@ class AgentHomeController extends GetxController {
     // Load from local storage FIRST — shows UI immediately
     agentData = await getLocallySavedAgentDetails();
     if (agentData?.agentId != null) {
+      // Ensure agent is online whenever they reach the home screen
+      if (agentData!.status != 'online' && agentData!.status != 'on_job') {
+        agentData = agentData!.copyWith(status: 'online');
+        await saveAgentDetailsLocally(agentData!);
+        await AgentFirebaseService()
+            .updateAgentStatus(agentData!.agentId!, 'online');
+      }
       showLoading = false;
       update(); // Show UI right away with cached data
 
@@ -81,7 +88,7 @@ class AgentHomeController extends GetxController {
     if (agentData?.agentId == null) return;
     try {
       final fresh =
-          await AgentFirebaseService().getAgentById(agentData!.agentId!);
+      await AgentFirebaseService().getAgentById(agentData!.agentId!);
       if (fresh != null) {
         agentData = fresh;
         await saveAgentDetailsLocally(fresh);
