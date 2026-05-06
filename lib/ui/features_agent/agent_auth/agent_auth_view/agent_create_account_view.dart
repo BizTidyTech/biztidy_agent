@@ -43,7 +43,8 @@ class _AgentCreateAccountViewState extends State<AgentCreateAccountView> {
                     style: AppStyles.keyStringStyle(18, AppColors.plainWhite)),
                 elevation: 0,
               ),
-              body: SingleChildScrollView(
+              body: SafeArea(
+                child: SingleChildScrollView(
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,9 +177,10 @@ class _AgentCreateAccountViewState extends State<AgentCreateAccountView> {
                         ),
                       ),
                     ),
-                    verticalSpacer(30),
+                    SizedBox(height: MediaQuery.of(context).padding.bottom + 30),
                   ],
                 ),
+              ),
               ),
             );
           },
@@ -206,11 +208,12 @@ class _AgentCreateAccountViewState extends State<AgentCreateAccountView> {
     bool isWide = false,
   }) {
     final hasFile = file != null;
+    final boxHeight = MediaQuery.of(context).size.height * 0.19;
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: isWide ? double.infinity : 140,
-        height: isWide ? 140 : 140,
+        width: isWide ? double.infinity : boxHeight,
+        height: boxHeight,
         decoration: BoxDecoration(
           color: hasFile
               ? AppColors.primaryThemeColor.withValues(alpha: 0.05)
@@ -228,27 +231,33 @@ class _AgentCreateAccountViewState extends State<AgentCreateAccountView> {
                 borderRadius: BorderRadius.circular(11),
                 child: Image.file(file!, fit: BoxFit.cover),
               )
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(icon, size: 36, color: AppColors.darkGray.withValues(alpha: 0.5)),
-                  const SizedBox(height: 8),
-                  Text(
-                    placeholder,
-                    style: AppStyles.subStringStyle(12, AppColors.darkGray),
-                    textAlign: TextAlign.center,
+            : FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(icon, size: 36, color: AppColors.darkGray.withValues(alpha: 0.5)),
+                      const SizedBox(height: 8),
+                      Text(
+                        placeholder,
+                        style: AppStyles.subStringStyle(12, AppColors.darkGray),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 6),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryThemeColor,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text('Choose Photo',
+                            style: AppStyles.subStringStyle(11, AppColors.plainWhite)),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 6),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryThemeColor,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text('Choose Photo',
-                        style: AppStyles.subStringStyle(11, AppColors.plainWhite)),
-                  ),
-                ],
+                ),
               ),
       ),
     );
