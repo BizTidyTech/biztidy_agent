@@ -42,129 +42,129 @@ class _AgentProfileScreenState extends State<AgentProfileScreen> {
             body: controller.showLoading
                 ? loadingWidget()
                 : Column(
+              children: [
+                _staticHeader(context, controller),
+                Expanded(
+                  child: ListView(
+                    padding: const EdgeInsets.all(16),
                     children: [
-                      _staticHeader(context, controller),
-                      Expanded(
-                        child: ListView(
-                          padding: const EdgeInsets.all(16),
-                          children: [
-                              // ── Account ──────────────────────────────────
-                              _sectionLabel('Account'),
-                              _card([
-                                _tile(
-                                  icon: Icons.lock_outline,
-                                  title: 'Change Password',
-                                  onTap: () => _showChangePasswordSheet(context, controller),
-                                ),
-                                _divider(),
-                                _tile(
-                                  icon: Icons.lock_reset_outlined,
-                                  title: 'Forgot Password',
-                                  subtitle: 'Send a reset link to your email',
-                                  onTap: () => _showForgotPasswordSheet(context, controller),
-                                ),
-                              ]),
-                              verticalSpacer(16),
-
-                              // ── Help Center ──────────────────────────────
-                              _sectionLabel('Help Center'),
-                              _card([
-                                _tile(
-                                  icon: Icons.email_outlined,
-                                  title: 'Email Us',
-                                  subtitle: 'tidy1tech@gmail.com',
-                                  onTap: () => _launch('mailto:tidy1tech@gmail.com'),
-                                ),
-                                _divider(),
-                                _tile(
-                                  icon: Icons.chat_outlined,
-                                  iconColor: const Color(0xFF25D366),
-                                  title: 'WhatsApp',
-                                  subtitle: 'Chat with us on WhatsApp',
-                                  onTap: () => _launch('https://wa.me/2348023179676'),
-                                ),
-                                _divider(),
-                                _tile(
-                                  icon: Icons.phone_outlined,
-                                  iconColor: AppColors.primaryThemeColor,
-                                  title: 'Call Us',
-                                  subtitle: '+234 802 317 9676',
-                                  onTap: () => _launch('tel:+2348023179676'),
-                                ),
-                              ]),
-                              verticalSpacer(16),
-
-                              // ── Legal ─────────────────────────────────────
-                              _sectionLabel('Legal & Info'),
-                              _card([
-                                _tile(
-                                  icon: Icons.info_outline,
-                                  title: 'About Us',
-                                  onTap: () => _showInfoSheet(context,
-                                      title: 'About Us',
-                                      content: _aboutUsText),
-                                ),
-                                _divider(),
-                                _tile(
-                                  icon: Icons.description_outlined,
-                                  title: 'Terms of Use',
-                                  onTap: () => _showInfoSheet(context,
-                                      title: 'Terms of Use',
-                                      content: _termsText),
-                                ),
-                                _divider(),
-                                _tile(
-                                  icon: Icons.warning_amber_outlined,
-                                  title: 'Disclaimer',
-                                  onTap: () => _showInfoSheet(context,
-                                      title: 'Disclaimer',
-                                      content: _disclaimerText),
-                                ),
-                                _divider(),
-                                _tile(
-                                  icon: Icons.privacy_tip_outlined,
-                                  title: 'Privacy Policy',
-                                  onTap: () => _showInfoSheet(context,
-                                      title: 'Privacy Policy',
-                                      content: _privacyText),
-                                ),
-                              ]),
-                              verticalSpacer(16),
-
-                              // ── Danger Zone ───────────────────────────────
-                              _sectionLabel('Account Actions'),
-                              _card([
-                                _tile(
-                                  icon: Icons.logout,
-                                  iconColor: Colors.orange,
-                                  title: 'Log Out',
-                                  titleColor: Colors.orange,
-                                  onTap: () => _confirmLogout(context, controller),
-                                ),
-                                _divider(),
-                                _tile(
-                                  icon: Icons.delete_forever_outlined,
-                                  iconColor: AppColors.coolRed,
-                                  title: 'Delete Account',
-                                  titleColor: AppColors.coolRed,
-                                  onTap: () => _showDeleteAccountSheet(context, controller),
-                                ),
-                              ]),
-                              verticalSpacer(40),
-
-                              // ── Version ───────────────────────────────────
-                              Center(
-                                child: Text(
-                                  'BizTidy Agent v1.0.0',
-                                  style: AppStyles.subStringStyle(12, AppColors.darkGray),
-                                ),
-                              ),
-                              verticalSpacer(20),
-                            ],
-                          ),
+                      // ── Account ──────────────────────────────────
+                      _sectionLabel('Account'),
+                      _card([
+                        _tile(
+                          icon: Icons.lock_outline,
+                          title: 'Change Password',
+                          onTap: () => _showChangePasswordSheet(context, controller),
                         ),
-                      ],
-                    ),
+                        _divider(),
+                        _tile(
+                          icon: Icons.lock_reset_outlined,
+                          title: 'Forgot Password',
+                          subtitle: 'Send a reset link to your email',
+                          onTap: () => _showForgotPasswordSheet(context, controller),
+                        ),
+                      ]),
+                      verticalSpacer(16),
+
+                      // ── Help Center ──────────────────────────────
+                      _sectionLabel('Help Center'),
+                      _card([
+                        _tile(
+                          icon: Icons.email_outlined,
+                          title: 'Email Us',
+                          subtitle: 'tidy1tech@gmail.com',
+                          onTap: () => _launch('mailto:tidy1tech@gmail.com'),
+                        ),
+                        _divider(),
+                        _tile(
+                          icon: Icons.chat_outlined,
+                          iconColor: const Color(0xFF25D366),
+                          title: 'WhatsApp',
+                          subtitle: 'Chat with us on WhatsApp',
+                          onTap: () => _launch('https://wa.me/2348023179676'),
+                        ),
+                        _divider(),
+                        _tile(
+                          icon: Icons.phone_outlined,
+                          iconColor: AppColors.primaryThemeColor,
+                          title: 'Call Us',
+                          subtitle: '+234 802 317 9676',
+                          onTap: () => _launch('tel:+2348023179676'),
+                        ),
+                      ]),
+                      verticalSpacer(16),
+
+                      // ── Legal ─────────────────────────────────────
+                      _sectionLabel('Legal & Info'),
+                      _card([
+                        _tile(
+                          icon: Icons.info_outline,
+                          title: 'About Us',
+                          onTap: () => _showInfoSheet(context,
+                              title: 'About Us',
+                              content: _aboutUsText),
+                        ),
+                        _divider(),
+                        _tile(
+                          icon: Icons.description_outlined,
+                          title: 'Terms of Use',
+                          onTap: () => _showInfoSheet(context,
+                              title: 'Terms of Use',
+                              content: _termsText),
+                        ),
+                        _divider(),
+                        _tile(
+                          icon: Icons.warning_amber_outlined,
+                          title: 'Disclaimer',
+                          onTap: () => _showInfoSheet(context,
+                              title: 'Disclaimer',
+                              content: _disclaimerText),
+                        ),
+                        _divider(),
+                        _tile(
+                          icon: Icons.privacy_tip_outlined,
+                          title: 'Privacy Policy',
+                          onTap: () => _showInfoSheet(context,
+                              title: 'Privacy Policy',
+                              content: _privacyText),
+                        ),
+                      ]),
+                      verticalSpacer(16),
+
+                      // ── Danger Zone ───────────────────────────────
+                      _sectionLabel('Account Actions'),
+                      _card([
+                        _tile(
+                          icon: Icons.logout,
+                          iconColor: Colors.orange,
+                          title: 'Log Out',
+                          titleColor: Colors.orange,
+                          onTap: () => _confirmLogout(context, controller),
+                        ),
+                        _divider(),
+                        _tile(
+                          icon: Icons.delete_forever_outlined,
+                          iconColor: AppColors.coolRed,
+                          title: 'Delete Account',
+                          titleColor: AppColors.coolRed,
+                          onTap: () => _showDeleteAccountSheet(context, controller),
+                        ),
+                      ]),
+                      verticalSpacer(40),
+
+                      // ── Version ───────────────────────────────────
+                      Center(
+                        child: Text(
+                          'BizTidy Agent v1.0.0',
+                          style: AppStyles.subStringStyle(12, AppColors.darkGray),
+                        ),
+                      ),
+                      verticalSpacer(20),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),
@@ -196,29 +196,29 @@ class _AgentProfileScreenState extends State<AgentProfileScreen> {
               ClipOval(
                 child: hasPhoto
                     ? CachedNetworkImage(
-                        imageUrl: photoUrl,
-                        width: 96,
-                        height: 96,
-                        fit: BoxFit.cover,
-                        placeholder: (_, __) => Container(
-                          width: 96, height: 96,
-                          color: AppColors.primaryThemeColor,
-                          child: const Icon(Icons.person,
-                              color: Colors.white54, size: 48),
-                        ),
-                        errorWidget: (_, __, ___) => Container(
-                          width: 96, height: 96,
-                          color: AppColors.primaryThemeColor,
-                          child: Icon(Icons.person,
-                              color: AppColors.plainWhite, size: 48),
-                        ),
-                      )
+                  imageUrl: photoUrl,
+                  width: 96,
+                  height: 96,
+                  fit: BoxFit.cover,
+                  placeholder: (_, __) => Container(
+                    width: 96, height: 96,
+                    color: AppColors.primaryThemeColor,
+                    child: const Icon(Icons.person,
+                        color: Colors.white54, size: 48),
+                  ),
+                  errorWidget: (_, __, ___) => Container(
+                    width: 96, height: 96,
+                    color: AppColors.primaryThemeColor,
+                    child: Icon(Icons.person,
+                        color: AppColors.plainWhite, size: 48),
+                  ),
+                )
                     : Container(
-                        width: 96, height: 96,
-                        color: AppColors.primaryThemeColor.withValues(alpha: 0.5),
-                        child: Icon(Icons.person,
-                            color: AppColors.plainWhite, size: 50),
-                      ),
+                  width: 96, height: 96,
+                  color: AppColors.primaryThemeColor.withValues(alpha: 0.5),
+                  child: Icon(Icons.person,
+                      color: AppColors.plainWhite, size: 50),
+                ),
               ),
               verticalSpacer(12),
               Text(
@@ -234,7 +234,7 @@ class _AgentProfileScreenState extends State<AgentProfileScreen> {
               verticalSpacer(10),
               Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                 decoration: BoxDecoration(
                   color: (controller.agentData?.isApproved == true)
                       ? const Color(0xFF1B8A2E)
@@ -246,7 +246,7 @@ class _AgentProfileScreenState extends State<AgentProfileScreen> {
                       ? '✓ Verified Agent'
                       : '⏳ Pending Approval',
                   style:
-                      AppStyles.regularStringStyle(12, AppColors.plainWhite),
+                  AppStyles.regularStringStyle(12, AppColors.plainWhite),
                 ),
               ),
             ],
@@ -257,20 +257,20 @@ class _AgentProfileScreenState extends State<AgentProfileScreen> {
   }
 
   Widget _sectionLabel(String text) => Padding(
-        padding: const EdgeInsets.only(left: 4, bottom: 8),
-        child: Text(text.toUpperCase(),
-            style: AppStyles.subStringStyle(11, AppColors.darkGray)
-                .copyWith(letterSpacing: 1.2)),
-      );
+    padding: const EdgeInsets.only(left: 4, bottom: 8),
+    child: Text(text.toUpperCase(),
+        style: AppStyles.subStringStyle(11, AppColors.darkGray)
+            .copyWith(letterSpacing: 1.2)),
+  );
 
   Widget _card(List<Widget> children) => Container(
-        decoration: BoxDecoration(
-          color: AppColors.plainWhite,
-          borderRadius: BorderRadius.circular(14),
-          boxShadow: _profileCardShadow,
-        ),
-        child: Column(children: children),
-      );
+    decoration: BoxDecoration(
+      color: AppColors.plainWhite,
+      borderRadius: BorderRadius.circular(14),
+      boxShadow: _profileCardShadow,
+    ),
+    child: Column(children: children),
+  );
 
   Widget _divider() => Divider(
       height: 1, indent: 52, endIndent: 16, color: Colors.grey.shade100);
@@ -300,7 +300,7 @@ class _AgentProfileScreenState extends State<AgentProfileScreen> {
                 14, titleColor ?? AppColors.fullBlack)),
         subtitle: subtitle != null
             ? Text(subtitle,
-                style: AppStyles.subStringStyle(12, AppColors.darkGray))
+            style: AppStyles.subStringStyle(12, AppColors.darkGray))
             : null,
         trailing: Icon(Icons.chevron_right,
             size: 20, color: AppColors.darkGray.withValues(alpha: 0.5)),
@@ -328,7 +328,7 @@ class _AgentProfileScreenState extends State<AgentProfileScreen> {
           decoration: BoxDecoration(
             color: AppColors.plainWhite,
             borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(24)),
+            const BorderRadius.vertical(top: Radius.circular(24)),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -412,7 +412,7 @@ class _AgentProfileScreenState extends State<AgentProfileScreen> {
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none),
           contentPadding:
-              const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           suffixIcon: IconButton(
             icon: Icon(obscure ? Icons.visibility_off : Icons.visibility,
                 color: AppColors.darkGray, size: 20),
@@ -442,7 +442,7 @@ class _AgentProfileScreenState extends State<AgentProfileScreen> {
           decoration: BoxDecoration(
             color: AppColors.plainWhite,
             borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(24)),
+            const BorderRadius.vertical(top: Radius.circular(24)),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -466,7 +466,7 @@ class _AgentProfileScreenState extends State<AgentProfileScreen> {
                   const SizedBox(width: 8),
                   Text('Delete Account',
                       style:
-                          AppStyles.keyStringStyle(18, AppColors.coolRed)),
+                      AppStyles.keyStringStyle(18, AppColors.coolRed)),
                 ],
               ),
               verticalSpacer(12),
@@ -481,7 +481,7 @@ class _AgentProfileScreenState extends State<AgentProfileScreen> {
                 decoration: InputDecoration(
                   hintText: 'Enter your password to confirm',
                   hintStyle:
-                      AppStyles.subStringStyle(14, AppColors.darkGray),
+                  AppStyles.subStringStyle(14, AppColors.darkGray),
                   filled: true,
                   fillColor: const Color(0xFFF5F6FA),
                   border: OutlineInputBorder(
@@ -506,7 +506,7 @@ class _AgentProfileScreenState extends State<AgentProfileScreen> {
                       onPressed: () => Navigator.pop(ctx),
                       style: OutlinedButton.styleFrom(
                         padding:
-                            const EdgeInsets.symmetric(vertical: 14),
+                        const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12)),
                       ),
@@ -527,7 +527,7 @@ class _AgentProfileScreenState extends State<AgentProfileScreen> {
                         backgroundColor: AppColors.coolRed,
                         foregroundColor: AppColors.plainWhite,
                         padding:
-                            const EdgeInsets.symmetric(vertical: 14),
+                        const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12)),
                       ),
@@ -553,7 +553,7 @@ class _AgentProfileScreenState extends State<AgentProfileScreen> {
       context: context,
       builder: (_) => AlertDialog(
         shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Text('Log Out',
             style: AppStyles.keyStringStyle(17, AppColors.fullBlack)),
         content: Text('Are you sure you want to log out?',
@@ -577,7 +577,7 @@ class _AgentProfileScreenState extends State<AgentProfileScreen> {
             ),
             child: Text('Log Out',
                 style:
-                    AppStyles.regularStringStyle(14, AppColors.plainWhite)),
+                AppStyles.regularStringStyle(14, AppColors.plainWhite)),
           ),
         ],
       ),
@@ -599,7 +599,7 @@ class _AgentProfileScreenState extends State<AgentProfileScreen> {
           decoration: BoxDecoration(
             color: AppColors.plainWhite,
             borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(24)),
+            const BorderRadius.vertical(top: Radius.circular(24)),
           ),
           child: Column(
             children: [
@@ -616,7 +616,7 @@ class _AgentProfileScreenState extends State<AgentProfileScreen> {
                 padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
                 child: Text(title,
                     style:
-                        AppStyles.keyStringStyle(18, AppColors.fullBlack)),
+                    AppStyles.keyStringStyle(18, AppColors.fullBlack)),
               ),
               const Divider(),
               Expanded(
@@ -666,7 +666,7 @@ class _AgentProfileScreenState extends State<AgentProfileScreen> {
           decoration: BoxDecoration(
             color: AppColors.plainWhite,
             borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(24)),
+            const BorderRadius.vertical(top: Radius.circular(24)),
           ),
           padding: const EdgeInsets.all(20),
           child: Column(
@@ -698,7 +698,7 @@ class _AgentProfileScreenState extends State<AgentProfileScreen> {
                 decoration: InputDecoration(
                   hintText: 'Your email address',
                   hintStyle:
-                      AppStyles.subStringStyle(14, AppColors.darkGray),
+                  AppStyles.subStringStyle(14, AppColors.darkGray),
                   filled: true,
                   fillColor: const Color(0xFFF5F6FA),
                   prefixIcon: Icon(Icons.email_outlined,
@@ -763,7 +763,7 @@ As an agent, you agree to provide professional, courteous, and thorough cleaning
 Agents must treat all customers, their property, and fellow agents with respect. Any form of misconduct may result in immediate suspension or removal from the platform.
 
 5. Payments & Commission
-a) Commission Structure: BizTidy operates on a 60/40 commission model. You (the agent) earn 60% of the total job fee. BizTidy retains 40% as a platform commission. In addition, a flat ₦500 Trust & Safety Fee is deducted per completed job from your earnings. Example: on a ₦10,000 job, your earnings = (₦10,000 × 60%) − ₦500 = ₦5,500.
+a) Commission Structure: BizTidy operates on a 60/40 commission model. You (the agent) earn 60% of the total job fee. BizTidy retains 40% as a platform commission. Example: on a ₦10,000 job, your earnings = ₦10,000 × 60% = ₦6,000.
 
 b) Payment Trigger: Your earnings are only calculated and credited after the client submits a star rating for the completed job. Jobs that are completed but not yet rated will show as pending.
 
