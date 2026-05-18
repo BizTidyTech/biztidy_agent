@@ -2,7 +2,7 @@ name: biztidy_agent_app
 description: "BizTidy Agent App - For cleaning service agents."
 publish_to: 'none'
 
-version: 1.0.3+76
+version: 1.0.4+4
 
 environment:
   sdk: ^3.5.0
@@ -32,6 +32,7 @@ dependencies:
   cached_network_image: ^3.4.1
   geolocator: ^13.0.3
   animate_gradient: ^0.0.3
+  email_otp: ^3.0.2
   cupertino_will_pop_scope: ^1.2.1
 
 dev_dependencies:
@@ -43,7 +44,7 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/agent_logo.png"
+  image_path: "assets/tidytech_logo.png"
   min_sdk_android: 21
 
 flutter:
