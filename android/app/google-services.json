@@ -1,0 +1,86 @@
+{
+  "project_info": {
+    "project_number": "67602217645",
+    "project_id": "tidytech-app",
+    "storage_bucket": "tidytech-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:67602217645:android:06452ac8837b53d74da424",
+        "android_client_info": {
+          "package_name": "com.biztidyagent.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5NfFg8Fw9uwLI6G6sFzmdBq9mSQXa5PY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:67602217645:android:1b9ccfe28a5ecaf14da424",
+        "android_client_info": {
+          "package_name": "com.tidytech.admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5NfFg8Fw9uwLI6G6sFzmdBq9mSQXa5PY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:67602217645:android:ef76999ed1cde0384da424",
+        "android_client_info": {
+          "package_name": "com.tidytech.agent"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5NfFg8Fw9uwLI6G6sFzmdBq9mSQXa5PY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:67602217645:android:9b87480a765a6e564da424",
+        "android_client_info": {
+          "package_name": "com.tidytech.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5NfFg8Fw9uwLI6G6sFzmdBq9mSQXa5PY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
