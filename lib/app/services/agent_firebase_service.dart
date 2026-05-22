@@ -17,7 +17,7 @@ List<AgentJobModel> _parseJobsInBackground(
   final epoch = DateTime.fromMillisecondsSinceEpoch(0);
   final jobs = jsonList.map((j) => AgentJobModel.fromJson(j)).toList();
   jobs.sort(
-      (a, b) => (b.assignedAt ?? epoch).compareTo(a.assignedAt ?? epoch));
+          (a, b) => (b.assignedAt ?? epoch).compareTo(a.assignedAt ?? epoch));
   return jobs;
 }
 
@@ -65,6 +65,47 @@ class AgentFirebaseService {
           .get();
       return result.docs.isNotEmpty;
     } catch (e) {
+      return false;
+    }
+  }
+
+  /// Updates the agent's password in Firebase Auth AND syncs it to Firestore.
+  /// Call this whenever the agent changes their password inside the app.
+  Future<bool> updateAgentPassword({
+    required String newPassword,
+  }) async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) return false;
+
+      // 1. Update password in Firebase Auth
+      await user.updatePassword(newPassword);
+
+      // 2. Sync the new password to Firestore so your records stay consistent
+      await _db.collection(_agents).doc(user.uid).update({
+        'password': newPassword,
+      });
+
+      Fluttertoast.showToast(
+        msg: 'Password updated successfully!',
+        backgroundColor: AppColors.normalGreen,
+      );
+      return true;
+    } on FirebaseAuthException catch (e) {
+      // requires-recent-login means the session is too old — user must re-auth
+      if (e.code == 'requires-recent-login') {
+        Fluttertoast.showToast(
+          msg: 'Please sign out and sign in again before changing your password.',
+          backgroundColor: AppColors.coolRed,
+          toastLength: Toast.LENGTH_LONG,
+        );
+      } else {
+        Fluttertoast.showToast(msg: 'Password update failed. Retry.');
+      }
+      logger.e('updateAgentPassword error: ${e.code}');
+      return false;
+    } catch (e) {
+      logger.e('updateAgentPassword error: $e');
       return false;
     }
   }
@@ -274,8 +315,8 @@ class AgentFirebaseService {
         .collection(_agents)
         .snapshots(includeMetadataChanges: false)
         .map((snapshot) => snapshot.docs
-            .map((doc) => AgentModel.fromJson(doc.data()))
-            .toList());
+        .map((doc) => AgentModel.fromJson(doc.data()))
+        .toList());
   }
 
   // ─── BANK DETAILS ─────────────────────────────────────────────────────────
@@ -307,9 +348,9 @@ class AgentFirebaseService {
       );
       if (response.statusCode == 201 || response.statusCode == 200) {
         final data =
-            json.decode(response.body) as Map<String, dynamic>;
+        json.decode(response.body) as Map<String, dynamic>;
         final code =
-            data['data']?['recipient_code'] as String?;
+        data['data']?['recipient_code'] as String?;
         logger.i('Paystack recipient created: $code');
         return code;
       }
@@ -353,7 +394,7 @@ class AgentFirebaseService {
     try {
       final uri = Uri.parse(
           'https://api.paystack.co/bank/resolve'
-          '?account_number=$accountNumber&bank_code=$bankCode');
+              '?account_number=$accountNumber&bank_code=$bankCode');
       final response = await http.get(
         uri,
         headers: {'Authorization': 'Bearer $paystackSecretKey'},
@@ -372,7 +413,7 @@ class AgentFirebaseService {
   Future<String?> fetchPaystackKey() async {
     try {
       final doc =
-          await _db.collection('Keys').doc('keysData').get();
+      await _db.collection('Keys').doc('keysData').get();
       return doc.data()?['paystackSecretKey'] as String?;
     } catch (e) {
       return null;

@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'package:biztidy_agent_app/app/helpers/agent_sharedprefs.dart';
 import 'package:biztidy_agent_app/app/services/agent_firebase_service.dart';
+import 'package:biztidy_agent_app/app/services/notification_service.dart';
 import 'package:biztidy_agent_app/main.dart' show logger;
 import 'package:biztidy_agent_app/ui/features_agent/agent_auth/agent_auth_model/agent_model.dart';
 import 'package:biztidy_agent_app/utils/app_constants/app_colors.dart';
@@ -62,6 +63,7 @@ class AgentAuthController extends GetxController {
 
       await saveAgentDetailsLocally(agent);
       await AgentFirebaseService().updateAgentStatus(agent.agentId!, 'online');
+      await NotificationService.saveTokenOnLogin(); // save OneSignal token
       showLoading = false; update();
 
       if (agent.isApproved != true) {
@@ -88,11 +90,36 @@ class AgentAuthController extends GetxController {
     }
   }
 
+  Future<void> sendPasswordReset(BuildContext context) async {
+    final email = emailController.text.trim();
+    if (email.isEmpty) {
+      errMessage = 'Enter your email address first';
+      update();
+      return;
+    }
+    showLoading = true; errMessage = ''; update();
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      showLoading = false; update();
+      Fluttertoast.showToast(
+        msg: 'Password reset link sent to $email. Check your inbox.',
+        backgroundColor: AppColors.normalGreen,
+        toastLength: Toast.LENGTH_LONG,
+      );
+    } on FirebaseAuthException catch (e) {
+      errMessage = e.code == 'user-not-found'
+          ? 'No account found with this email.'
+          : 'Failed to send reset email. Try again.';
+      showLoading = false; update();
+    }
+  }
+
   Future<void> signOut(BuildContext context) async {
     final agent = await getLocallySavedAgentDetails();
     if (agent?.agentId != null) {
       await AgentFirebaseService().updateAgentStatus(agent!.agentId!, 'offline');
     }
+    await NotificationService.clearTokenOnLogout(); // remove OneSignal token
     await FirebaseAuth.instance.signOut();
     await clearAgentDetailsLocally();
     context.go('/');
@@ -210,14 +237,11 @@ class AgentSignupController extends GetxController {
 
   Future<void> pickPassportPhoto() async {
     if (isPickingPassport) return;
-    // Dismiss keyboard first, then open picker WITHOUT triggering a rebuild.
-    // Calling update() before pickImage() causes a Scaffold rebuild mid-navigation
-    // which results in a black/blank screen on Android.
-    await SystemChannels.textInput.invokeMethod('TextInput.hide');
-    await Future.delayed(const Duration(milliseconds: 150));
     isPickingPassport = true;
-    // No update() here — avoid rebuilding while the picker is opening
+    update();
     try {
+      await SystemChannels.textInput.invokeMethod('TextInput.hide');
+      await Future.delayed(const Duration(milliseconds: 150));
       final picked = await ImagePicker().pickImage(
         source: ImageSource.gallery,
         imageQuality: 70,
@@ -233,20 +257,17 @@ class AgentSignupController extends GetxController {
       logger.e('Passport photo pick error: $e');
     } finally {
       isPickingPassport = false;
-      update(); // Only rebuild AFTER picker is fully closed
+      update();
     }
   }
 
   Future<void> pickIdDocument() async {
     if (isPickingId) return;
-    // Dismiss keyboard first, then open picker WITHOUT triggering a rebuild.
-    // Calling update() before pickImage() causes a Scaffold rebuild mid-navigation
-    // which results in a black/blank screen on Android.
-    await SystemChannels.textInput.invokeMethod('TextInput.hide');
-    await Future.delayed(const Duration(milliseconds: 150));
     isPickingId = true;
-    // No update() here — avoid rebuilding while the picker is opening
+    update();
     try {
+      await SystemChannels.textInput.invokeMethod('TextInput.hide');
+      await Future.delayed(const Duration(milliseconds: 150));
       final picked = await ImagePicker().pickImage(
         source: ImageSource.gallery,
         imageQuality: 75,
@@ -262,7 +283,7 @@ class AgentSignupController extends GetxController {
       logger.e('ID document pick error: $e');
     } finally {
       isPickingId = false;
-      update(); // Only rebuild AFTER picker is fully closed
+      update();
     }
   }
 
